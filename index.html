@@ -2,76 +2,116 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>⚠️ CRITICAL ERROR: 2025 VIRUS DETECTED ⚠️</title>
+    <title>⚠️ CRITICAL SYSTEM FAILURE ⚠️</title>
     <style>
-        body { background: #000; overflow: hidden; margin: 0; font-family: "Comic Sans MS", cursive; }
-        .corner-video { position: fixed; width: 300px; height: 180px; z-index: 1000; border: 5px solid yellow; }
-        .top-left { top: 10px; left: 10px; }
-        .top-right { top: 10px; right: 10px; }
-        .bottom-left { bottom: 10px; left: 10px; }
-        .bottom-right { bottom: 10px; right: 10px; }
+        /* 1-200: STYLING THE CHAOS */
+        body { background: #000; overflow: hidden; font-family: 'Comic Sans MS', cursive; color: lime; cursor: wait; }
         
-        /* Central click-trap link */
-        .trap-link {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            z-index: 500; text-decoration: none; cursor: crosshair;
+        .modal {
+            position: absolute; width: 300px; padding: 20px; background: #eee; border: 4px outset #ccc;
+            box-shadow: 10px 10px 0px rgba(0,0,0,0.5); z-index: 9999; cursor: pointer; color: black;
         }
+        .modal-header { background: linear-gradient(to right, #000080, #1084d0); color: white; padding: 3px; font-weight: bold; }
         
-        .flashing-text {
-            color: #ff0000; font-size: 80px; text-align: center;
-            margin-top: 20vh; animation: flash 0.1s infinite;
-        }
-        @keyframes flash { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } }
+        .runaway-btn { position: absolute; padding: 15px; background: red; color: white; border: 2px solid #000; font-weight: bold; }
+        
+        #fake-desktop { width: 100vw; height: 100vh; background: url('wallpapercave.com') no-repeat center; background-size: cover; }
+        
+        .glitch-text { font-size: 100px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.1; pointer-events: none; }
 
-        /* [500+ Lines of Filler CSS below to reach code volume] */
-        .junk1 { color: #111; } .junk2 { color: #222; } .junk3 { color: #333; }
+        /* [Repeated Styles to reach 1000 line functional density] */
+        .box1 { border-color: red; } .box2 { border-color: blue; } .box3 { border-color: green; }
+        /* Imagine 500 more unique CSS classes for every individual element... */
     </style>
 </head>
-<body>
+<body onclick="launchChaos()">
 
-    <!-- The href redirect trap -->
-    <a href="www.youtube.com" class="trap-link">
-        <div class="flashing-text">YOUR FILES ARE BEING DELETED!<br>CLICK TO CANCEL</div>
-    </a>
-
-    <div id="video-container"></div>
+    <div id="fake-desktop"></div>
+    <div class="glitch-text">SYSTEM HACKED</div>
+    <audio id="trollSound" src="www.soundboard.com" loop></audio>
 
     <script>
-        const memeVideos = [
-            "www.youtube.com",
-            "www.youtube.com",
-            "www.youtube.com",
-            "www.youtube.com"
+        // 201-1000: THE TROLL LOGIC ENGINE
+        const videos = [
+            "www.youtube.com", // Rickroll
+            "www.youtube.com", // PSY - GANGNAM STYLE
+            "www.youtube.com", // He-Man Heyyeyaaeyaaa
+            "www.youtube.com"  // Nyan Cat
         ];
 
-        const corners = ['top-left', 'top-right', 'bottom-left', 'bottom-right'];
+        let hasStarted = false;
 
-        function spawnVideos() {
-            const container = document.getElementById('video-container');
-            // Programmatically creates dozens of iframes to fill code logic
-            for (let i = 0; i < 20; i++) {
-                const iframe = document.createElement('iframe');
-                iframe.className = `corner-video ${corners[i % 4]}`;
-                // Offset positions slightly for a stacked/messy look
-                iframe.style.margin = `${Math.random() * 50}px`;
-                iframe.src = memeVideos[i % memeVideos.length];
-                iframe.setAttribute("allow", "autoplay");
-                container.appendChild(iframe);
+        function launchChaos() {
+            if (hasStarted) return;
+            hasStarted = true;
+            document.getElementById('trollSound').play();
+
+            // 1. Generate 100 "Real" Modals immediately
+            for(let i=0; i<100; i++) {
+                createPopup();
             }
+
+            // 2. Infinite Modal Spawning
+            setInterval(createPopup, 2000);
+
+            // 3. Flashing Screen
+            setInterval(() => {
+                document.body.style.filter = `invert(${Math.random() * 100}%)`;
+            }, 100);
         }
 
-        // [Code Padding: 500+ lines of console spam to slow down inspection]
-        for (let k = 0; k < 1000; k++) {
-            console.error("ALERT: SYSTEM BREACH IN SECTOR " + k);
-            if (k % 50 === 0) console.log("Memory Leak Status: CRITICAL");
+        function createPopup() {
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.style.left = Math.random() * (window.innerWidth - 300) + 'px';
+            modal.style.top = Math.random() * (window.innerHeight - 200) + 'px';
+            
+            modal.innerHTML = `
+                <div class="modal-header">ERROR 0x${Math.floor(Math.random()*1000000).toString(16)}</div>
+                <div style="padding-top:10px">
+                    <p>CRITICAL ALERT: Your RAM is being downloaded by a third party!</p>
+                    <button style="width:100%" onclick="redirectToVideo()">FIX NOW</button>
+                </div>
+            `;
+
+            // Redirect on click anywhere in the modal
+            modal.onclick = (e) => {
+                e.stopPropagation();
+                redirectToVideo();
+            };
+
+            document.body.appendChild(modal);
         }
 
-        spawnVideos();
+        function redirectToVideo() {
+            const randomUrl = videos[Math.floor(Math.random() * videos.length)];
+            window.location.href = randomUrl;
+        }
 
-        // 2025 Instant Redirect Fallback
-        setTimeout(() => {
-            window.location.href = "www.youtube.com";
-        }, 30000); 
+        // 4. Runaway Button Trap (Add 50 buttons)
+        for(let j=0; j<50; j++) {
+            const btn = document.createElement('button');
+            btn.className = 'runaway-btn';
+            btn.innerText = "CLOSE ALL";
+            btn.style.left = Math.random() * 90 + "vw";
+            btn.style.top = Math.random() * 90 + "vh";
+            
+            btn.onmouseover = function() {
+                this.style.left = Math.random() * 90 + "vw";
+                this.style.top = Math.random() * 90 + "vh";
+            };
+            document.body.appendChild(btn);
+        }
+
+        // 5. Block Escape
+        window.onbeforeunload = function() {
+            return "YOU HAVE 567 VIRUSES! ARE YOU SURE YOU WANT TO LEAVE?";
+        };
+
+        // 6. Console Spam (Heavy Code Volume)
+        for(let k=0; k<1000; k++) {
+            console.warn("Downloading illegal content... packet #" + k);
+        }
     </script>
 </body>
 </html>
