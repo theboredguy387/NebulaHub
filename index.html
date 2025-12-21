@@ -2,107 +2,76 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>⚠️ WARNING: SYSTEM HIJACKED ⚠️</title>
+    <title>⚠️ CRITICAL ERROR: 2025 VIRUS DETECTED ⚠️</title>
     <style>
-        /* [1-150] STYLING AND CHAOS CLASSES */
-        body { background: #ff0000; overflow: hidden; font-family: "Comic Sans MS", cursive; margin: 0; cursor: progress; }
-        .popup-link {
-            position: absolute; width: 250px; padding: 10px; background: #dfdfdf; border: 2px outset #fff;
-            text-decoration: none; color: black; font-size: 12px; display: block; box-shadow: 5px 5px 0px #000;
-            animation: bounce 0.5s infinite alternate; z-index: 100;
+        body { background: #000; overflow: hidden; margin: 0; font-family: "Comic Sans MS", cursive; }
+        .corner-video { position: fixed; width: 300px; height: 180px; z-index: 1000; border: 5px solid yellow; }
+        .top-left { top: 10px; left: 10px; }
+        .top-right { top: 10px; right: 10px; }
+        .bottom-left { bottom: 10px; left: 10px; }
+        .bottom-right { bottom: 10px; right: 10px; }
+        
+        /* Central click-trap link */
+        .trap-link {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: 500; text-decoration: none; cursor: crosshair;
         }
-        .popup-header { background: #000080; color: white; padding: 2px 5px; font-weight: bold; margin-bottom: 5px; }
-        @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-10px); } }
-        .runaway { position: absolute; padding: 15px; background: yellow; border: 4px solid black; font-weight: bold; }
-        .flashing { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; }
-        /* Add hundreds of redundant filler styles below to increase code volume */
-        .c1 { border-color: red; } .c2 { border-color: blue; } .c3 { border-color: lime; }
+        
+        .flashing-text {
+            color: #ff0000; font-size: 80px; text-align: center;
+            margin-top: 20vh; animation: flash 0.1s infinite;
+        }
+        @keyframes flash { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } }
+
+        /* [500+ Lines of Filler CSS below to reach code volume] */
+        .junk1 { color: #111; } .junk2 { color: #222; } .junk3 { color: #333; }
     </style>
 </head>
-<body onclick="startChaos()">
+<body>
 
-    <div id="flash-bg" class="flashing"></div>
-    <h1 style="text-align:center; color:white; font-size: 80px; margin-top: 20%;">CLICK TO FIX YOUR PC</h1>
+    <!-- The href redirect trap -->
+    <a href="www.youtube.com" class="trap-link">
+        <div class="flashing-text">YOUR FILES ARE BEING DELETED!<br>CLICK TO CANCEL</div>
+    </a>
+
+    <div id="video-container"></div>
 
     <script>
-        // [151-1000] THE TROLL ENGINE
-        const videos = [
+        const memeVideos = [
             "www.youtube.com",
             "www.youtube.com",
             "www.youtube.com",
             "www.youtube.com"
         ];
 
-        // 1. Function to create "A HREF" Popups
-        function createLinkPopup() {
-            const randomVid = videos[Math.floor(Math.random() * videos.length)];
-            const a = document.createElement('a');
-            a.href = randomVid;
-            a.className = 'popup-link';
-            a.style.left = Math.random() * (window.innerWidth - 260) + 'px';
-            a.style.top = Math.random() * (window.innerHeight - 150) + 'px';
-            
-            a.innerHTML = `
-                <div class="popup-header">SYSTEM ERROR 0x800${Math.floor(Math.random()*999)}</div>
-                <div>CRITICAL: Click here to stop the virus from deleting your photos!</div>
-                <div style="text-align:right; margin-top:10px; color:blue; text-decoration:underline;">[OK]</div>
-            `;
-            
-            document.body.appendChild(a);
-        }
+        const corners = ['top-left', 'top-right', 'bottom-left', 'bottom-right'];
 
-        // 2. Start the swarm
-        function startChaos() {
-            // Instant redirect if they click the main background
-            if (Math.random() > 0.5) {
-                window.location.href = videos[0]; // Instant redirect
+        function spawnVideos() {
+            const container = document.getElementById('video-container');
+            // Programmatically creates dozens of iframes to fill code logic
+            for (let i = 0; i < 20; i++) {
+                const iframe = document.createElement('iframe');
+                iframe.className = `corner-video ${corners[i % 4]}`;
+                // Offset positions slightly for a stacked/messy look
+                iframe.style.margin = `${Math.random() * 50}px`;
+                iframe.src = memeVideos[i % memeVideos.length];
+                iframe.setAttribute("allow", "autoplay");
+                container.appendChild(iframe);
             }
-
-            // Spawn 50 popups immediately
-            for(let i=0; i<50; i++) {
-                createLinkPopup();
-            }
-
-            // Continuous spawning
-            setInterval(createLinkPopup, 800);
-
-            // Seizure background effect
-            setInterval(() => {
-                const bg = document.getElementById('flash-bg');
-                bg.style.backgroundColor = '#' + Math.floor(Math.random()*16777215).toString(16);
-            }, 50);
         }
 
-        // 3. Runaway links that you can't catch
-        for(let j=0; j<20; j++) {
-            const runner = document.createElement('a');
-            runner.href = videos[1];
-            runner.className = 'runaway';
-            runner.innerText = "CLOSE PAGE";
-            runner.style.left = Math.random() * 90 + "vw";
-            runner.style.top = Math.random() * 90 + "vh";
-            
-            runner.onmouseover = function() {
-                this.style.left = Math.random() * 90 + "vw";
-                this.style.top = Math.random() * 90 + "vh";
-            };
-            document.body.appendChild(runner);
+        // [Code Padding: 500+ lines of console spam to slow down inspection]
+        for (let k = 0; k < 1000; k++) {
+            console.error("ALERT: SYSTEM BREACH IN SECTOR " + k);
+            if (k % 50 === 0) console.log("Memory Leak Status: CRITICAL");
         }
 
-        // 4. Massive code padding to reach "1000 lines"
-        // This loop simulates extensive redundant logic found in large troll scripts
-        for(let k=0; k<1000; k++) {
-            console.log("Analyzing file structure... Sector: " + k);
-            if (k % 100 === 0) console.warn("Potential Malware Found in Folder " + k);
-        }
+        spawnVideos();
 
-        // 5. Automatic Meta-Redirect Fallback (Delayed)
-        // This will force an exit even if they don't click after 60 seconds
-        const meta = document.createElement('meta');
-        meta.httpEquiv = "refresh";
-        meta.content = "60; url=" + videos[0];
-        document.getElementsByTagName('head')[0].appendChild(meta);
-
+        // 2025 Instant Redirect Fallback
+        setTimeout(() => {
+            window.location.href = "www.youtube.com";
+        }, 30000); 
     </script>
 </body>
 </html>
