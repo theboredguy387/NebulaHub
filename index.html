@@ -1,28 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>GameHub</title>
+  <title>GoofySite</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header>
-  <h1>🎮 GameHub</h1>
+  <div id="sidebar">
+    <button onclick="goHome()">🏠</button>
+    <button onclick="exitGame()">⏹</button>
+  </div>
+
   <input id="search" placeholder="Search games">
-</header>
-
-<div id="tabs"></div>
-
-<main>
   <div id="games"></div>
 
-  <div id="playerWrap">
-    <iframe id="player" allowfullscreen></iframe>
-    <button onclick="player.requestFullscreen()">⛶ Fullscreen</button>
-  </div>
-</main>
+  <iframe id="player" frameborder="0"></iframe>
 
-<script src="app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
