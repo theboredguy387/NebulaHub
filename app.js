@@ -2,7 +2,12 @@ const categories = ["All", "Arcade", "Favorites"];
 const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
 
 const games = [
-  { name: "Demo Click Game", category: "Arcade", path: "games/game1/index.html", thumb: "games/game1/thumb.png" }
+  {
+    name: "Demo Click Game",
+    category: "Arcade",
+    path: "games/game1/index.html",
+    thumb: "games/game1/hrm.jpg"   // updated to your image
+  }
 ];
 
 let active = "All";
