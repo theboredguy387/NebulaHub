@@ -14,35 +14,29 @@
       <span>Nebula</span>
     </div>
 
-    <button onclick="showHome()">🏠</button>
-    <button onclick="showGames()">🎮</button>
+    <button id="homeBtn">🏠 Home</button>
+    <button id="gamesBtn">🎮 Games</button>
   </div>
 
   <!-- MAIN -->
   <div id="main">
 
+    <!-- PARTICLES -->
+    <canvas id="particles"></canvas>
+
     <!-- HOME -->
     <div id="home">
       <h1>Welcome to Nebula</h1>
-      <p>Play games. Drift through space. Stay bored never.</p>
+      <p>Float through games and space.</p>
     </div>
 
     <!-- GAMES -->
     <div id="games">
       <h2>Games</h2>
-
       <div class="game-list">
-        <button onclick="launchGame('https://mathgames66.github.io/games/stickman-hook/')">
-          Stickman Hook
-        </button>
-
-        <button onclick="launchGame('https://mathgames66.github.io/games/house-of-hazards/')">
-          House of Hazards
-        </button>
-
-        <button onclick="launchGame('https://mathgames66.github.io/games/happy-wheels/')">
-          Happy Wheels
-        </button>
+        <button data-url="https://mathgames66.github.io/games/stickman-hook/">Stickman Hook</button>
+        <button data-url="https://mathgames66.github.io/games/house-of-hazards/">House of Hazards</button>
+        <button data-url="https://mathgames66.github.io/games/happy-wheels/">Happy Wheels</button>
       </div>
     </div>
 
@@ -51,8 +45,6 @@
 
   </div>
 
-<script src="app.js" defer></script>
-  
+  <script src="app.js" defer></script>
 </body>
 </html>
-
