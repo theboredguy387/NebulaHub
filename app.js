@@ -4,6 +4,7 @@ window.onload = () => {
   const player = document.getElementById("player");
   const rail = document.getElementById("rail");
   const shell = document.getElementById("gameShell");
+  const home = document.getElementById("home");
 
   const games = [
     { name: "Stickman Hook", url: "https://genizymath.github.io/games/stickman-hook/" },
@@ -15,7 +16,8 @@ window.onload = () => {
     gamesDiv.innerHTML = "";
     const q = search.value.toLowerCase();
 
-    games.filter(g => g.name.toLowerCase().includes(q))
+    games
+      .filter(g => g.name.toLowerCase().includes(q))
       .forEach(g => {
         const d = document.createElement("div");
         d.className = "game";
@@ -27,9 +29,7 @@ window.onload = () => {
 
   function launch(url) {
     player.src = url;
-
-    search.style.display = "none";
-    gamesDiv.style.display = "none";
+    home.style.display = "none";
     rail.style.display = "flex";
     shell.style.display = "block";
   }
@@ -38,8 +38,7 @@ window.onload = () => {
     player.src = "";
     rail.style.display = "none";
     shell.style.display = "none";
-    search.style.display = "block";
-    gamesDiv.style.display = "grid";
+    home.style.display = "block";
   };
 
   window.goHome = () => exitGame();
