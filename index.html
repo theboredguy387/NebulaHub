@@ -2,34 +2,53 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>GoofySite</title>
+  <title>Nebula Hub</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- LEFT RAIL -->
-  <div id="rail">
-    <button onclick="goHome()">🏠</button>
-    <button onclick="exitGame()">⏹</button>
-  </div>
-
-  <!-- HOME UI -->
-  <div id="home">
-    <input id="search" placeholder="Search games">
-    <div id="games"></div>
-  </div>
-
-  <!-- GAME SHELL -->
-  <div id="gameShell">
-    <iframe
-      id="player"
-      frameborder="0"
-      allowfullscreen
-    ></iframe>
-
-    <div id="bottomBar">
-      ⛶ ⟳ ☰
+  <!-- SIDEBAR -->
+  <div id="sidebar">
+    <div class="logo">
+      <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExdmFmOHUzcm9ydnE0ajQwano4ZTF0Y29vdzY3bWZnZGk1Ym5yeXYxeiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/sXOQD2MmZyYc9gGtlI/giphy.gif">
+      <span>Nebula</span>
     </div>
+
+    <button onclick="showHome()">🏠</button>
+    <button onclick="showGames()">🎮</button>
+  </div>
+
+  <!-- MAIN -->
+  <div id="main">
+
+    <!-- HOME -->
+    <div id="home">
+      <h1>Welcome to Nebula</h1>
+      <p>Play games. Drift through space. Stay bored never.</p>
+    </div>
+
+    <!-- GAMES -->
+    <div id="games">
+      <h2>Games</h2>
+
+      <div class="game-list">
+        <button onclick="launchGame('https://mathgames66.github.io/games/stickman-hook/')">
+          Stickman Hook
+        </button>
+
+        <button onclick="launchGame('https://mathgames66.github.io/games/house-of-hazards/')">
+          House of Hazards
+        </button>
+
+        <button onclick="launchGame('https://mathgames66.github.io/games/happy-wheels/')">
+          Happy Wheels
+        </button>
+      </div>
+    </div>
+
+    <!-- PLAYER -->
+    <iframe id="player" allowfullscreen></iframe>
+
   </div>
 
   <script src="app.js"></script>
