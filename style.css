@@ -11,7 +11,7 @@ body {
   color: white;
 }
 
-/* SIDEBAR */
+/* ---------- SIDEBAR ---------- */
 #sidebar {
   width: 120px;
   background: #0b1020;
@@ -30,51 +30,42 @@ body {
   margin: 10px 0;
   border-radius: 12px;
   cursor: pointer;
-  font-size: 14px;
 }
 
-.logo {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-.logo img {
-  width: 50px;
-  border-radius: 12px;
-}
-
-.logo span {
-  display: block;
-  margin-top: 6px;
-  font-size: 14px;
-  opacity: 0.8;
-}
-
-/* MAIN */
+/* ---------- MAIN ---------- */
 #main {
   flex: 1;
   position: relative;
   overflow: hidden;
 }
 
-/* GRADIENT BACKGROUND */
-#main::before {
+/* 🔮 HOME BACKGROUND (nebula) */
+body.home #main::before {
   content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(135deg, #3bd5c6, #7c7cff, #ff7ac8);
-  opacity: 0.25;
+  opacity: 0.3;
   z-index: 0;
 }
 
-/* PARTICLES */
+/* 🌌 GAMES BACKGROUND (dark blue) */
+body.games #main::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #020617, #020617);
+  z-index: 0;
+}
+
+/* ---------- PARTICLES ---------- */
 #particles {
   position: absolute;
   inset: 0;
   z-index: 1;
 }
 
-/* HOME */
+/* ---------- HOME ---------- */
 #home {
   position: relative;
   z-index: 2;
@@ -86,7 +77,7 @@ body {
   font-size: 56px;
 }
 
-/* GAMES */
+/* ---------- GAMES ---------- */
 #games {
   display: none;
   position: relative;
@@ -106,7 +97,7 @@ body {
   cursor: pointer;
 }
 
-/* PLAYER */
+/* ---------- PLAYER ---------- */
 #player {
   display: none;
   position: absolute;
