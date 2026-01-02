@@ -1,45 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Goofysite</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>Nebula Hub</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body class="home">
 
-  <div id="sidebar">
-    <h2>Goofysite</h2>
-    <button onclick="showHome()">Home</button>
-    <button onclick="showGames()">Games</button>
-  </div>
+<body>
+  <aside class="sidebar">
+    <div class="title">Nebula Hub</div>
+    <button onclick="showHome()">🏠 Home</button>
+    <button onclick="showGames()">🎮 Games</button>
+  </aside>
 
-  <div id="main">
-    <!-- HOME -->
-    <div id="home">
-      <h1>Nebula Hub</h1>
-      <p>games • proxy • chaos</p>
-      <img src="hrm.jpg" alt="hero" />
-    </div>
+  <main>
+    <section id="home">
+      <h1>Welcome to Nebula</h1>
+    </section>
 
-    <!-- GAMES LIST -->
-    <div id="games">
-      <h1>Games</h1>
-      <div class="game-list">
-        <button onclick="launchGame('https://gn-math.github.io/house-of-hazards/')">
-          House of Hazards
-        </button>
-        <button onclick="launchGame('https://gn-math.github.io/1v1-lol/')">
-          1v1.LOL
-        </button>
-        <button onclick="launchGame('https://gn-math.github.io/slope/')">
-          Slope
-        </button>
-      </div>
-    </div>
-
-    <!-- GAME PLAYER -->
-    <iframe id="player" allowfullscreen></iframe>
-  </div>
+    <section id="games">
+      <h2>Games</h2>
+      <button onclick="loadGame()">Play Game</button>
+      <iframe id="gameFrame" allowfullscreen></iframe>
+    </section>
+  </main>
 
   <script src="app.js"></script>
 </body>
