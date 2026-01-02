@@ -21,13 +21,13 @@
             margin-bottom: 30px;
         }
 
-        .url-input {
+        .url-input-group {
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
         }
 
-        .url-input input {
+        .url-input-group input {
             flex: 1;
             padding: 15px 20px;
             background: rgba(15, 23, 42, 0.8);
@@ -38,7 +38,7 @@
             outline: none;
         }
 
-        .url-input input:focus {
+        .url-input-group input:focus {
             box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
         }
 
@@ -47,22 +47,24 @@
             gap: 10px;
             flex-wrap: wrap;
             margin-bottom: 20px;
+            justify-content: center;
         }
 
-        .quick-link {
+        .quick-btn {
             padding: 10px 20px;
             background: rgba(99, 102, 241, 0.1);
             border: 1px solid var(--primary);
             border-radius: 20px;
             color: var(--light);
-            text-decoration: none;
+            cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
             gap: 8px;
+            font-size: 0.9rem;
         }
 
-        .quick-link:hover {
+        .quick-btn:hover {
             background: rgba(99, 102, 241, 0.2);
             transform: translateY(-2px);
         }
@@ -71,9 +73,10 @@
             display: flex;
             gap: 10px;
             justify-content: center;
+            flex-wrap: wrap;
         }
 
-        .proxy-frame {
+        .proxy-frame-wrapper {
             width: 100%;
             height: 70vh;
             border: 2px solid var(--primary);
@@ -81,12 +84,28 @@
             overflow: hidden;
             margin-bottom: 30px;
             background: white;
+            position: relative;
         }
 
-        .proxy-frame iframe {
+        #proxyFrame {
             width: 100%;
             height: 100%;
             border: none;
+        }
+
+        .proxy-loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            z-index: 10;
         }
 
         .proxy-info {
@@ -120,6 +139,24 @@
             color: #94a3b8;
             font-size: 0.9rem;
         }
+
+        .proxy-notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid #6366f1;
+            border-radius: 10px;
+            padding: 15px 20px;
+            color: white;
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
     </style>
 </head>
 <body>
@@ -151,12 +188,12 @@
             <!-- Proxy Header -->
             <div class="hero">
                 <h1 class="hero-title">Nebula Proxy</h1>
-                <p class="hero-subtitle">Browse any website securely - Works like PeteZah!</p>
+                <p class="hero-subtitle">Browse any website securely - Works with YouTube, Netflix, and more!</p>
             </div>
 
             <!-- Proxy Input -->
             <div class="proxy-input-container">
-                <div class="url-input">
+                <div class="url-input-group">
                     <input type="text" id="urlInput" value="https://www.google.com" placeholder="Enter website URL...">
                     <button onclick="loadUrl()" class="btn">
                         <i class="fas fa-shield-alt"></i> Go
@@ -165,29 +202,32 @@
 
                 <!-- Quick Links -->
                 <div class="quick-links">
-                    <a href="#" onclick="quickLink('https://www.youtube.com')" class="quick-link">
+                    <button onclick="quickLink('https://www.youtube.com')" class="quick-btn">
                         <i class="fab fa-youtube"></i> YouTube
-                    </a>
-                    <a href="#" onclick="quickLink('https://www.google.com')" class="quick-link">
+                    </button>
+                    <button onclick="quickLink('https://www.google.com')" class="quick-btn">
                         <i class="fab fa-google"></i> Google
-                    </a>
-                    <a href="#" onclick="quickLink('https://www.github.com')" class="quick-link">
+                    </button>
+                    <button onclick="quickLink('https://www.github.com')" class="quick-btn">
                         <i class="fab fa-github"></i> GitHub
-                    </a>
-                    <a href="#" onclick="quickLink('https://www.reddit.com')" class="quick-link">
+                    </button>
+                    <button onclick="quickLink('https://www.reddit.com')" class="quick-btn">
                         <i class="fab fa-reddit"></i> Reddit
-                    </a>
-                    <a href="#" onclick="quickLink('https://www.netflix.com')" class="quick-link">
+                    </button>
+                    <button onclick="quickLink('https://www.netflix.com')" class="quick-btn">
                         <i class="fas fa-film"></i> Netflix
-                    </a>
+                    </button>
+                    <button onclick="quickLink('https://www.twitch.tv')" class="quick-btn">
+                        <i class="fab fa-twitch"></i> Twitch
+                    </button>
                 </div>
 
                 <!-- Controls -->
                 <div class="proxy-controls">
-                    <button onclick="goBack()" class="btn btn-small">
+                    <button onclick="goBack()" class="btn btn-small" id="backBtn">
                         <i class="fas fa-arrow-left"></i> Back
                     </button>
-                    <button onclick="goForward()" class="btn btn-small">
+                    <button onclick="goForward()" class="btn btn-small" id="forwardBtn">
                         <i class="fas fa-arrow-right"></i> Forward
                     </button>
                     <button onclick="refreshPage()" class="btn btn-small">
@@ -196,11 +236,18 @@
                     <button onclick="clearProxy()" class="btn btn-small">
                         <i class="fas fa-times"></i> Clear
                     </button>
+                    <button onclick="openInNewTab()" class="btn btn-small">
+                        <i class="fas fa-external-link-alt"></i> New Tab
+                    </button>
                 </div>
             </div>
 
             <!-- Proxy Frame -->
-            <div class="proxy-frame">
+            <div class="proxy-frame-wrapper">
+                <div class="proxy-loading" id="proxyLoading">
+                    <div class="spinner"></div>
+                    <p>Connecting to secure proxy...</p>
+                </div>
                 <iframe id="proxyFrame" title="Nebula Proxy"></iframe>
             </div>
 
@@ -230,7 +277,7 @@
 
             <!-- Footer -->
             <footer class="footer">
-                <p>NebulaHub Proxy &copy; 2024 | Works with YouTube, Netflix, and all sites</p>
+                <p>NebulaHub Proxy &copy; <span id="currentYear"></span> | Works with all sites including YouTube and Netflix</p>
             </footer>
         </div>
     </div>
