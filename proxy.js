@@ -1,12 +1,35 @@
-// Working Proxy for NebulaHub
+// Fixed Working Proxy for NebulaHub
 
 let proxyHistory = [];
 let currentHistoryIndex = -1;
+let currentUrl = '';
+
+// Working proxy services (updated)
+const PROXY_SERVICES = [
+    'https://js11.corrosionproxy.com/',
+    'https://js7.corrosionproxy.com/',
+    'https://js5.corrosionproxy.com/',
+    'https://js3.corrosionproxy.com/'
+];
+
+let currentProxyIndex = 0;
+
+// Get current proxy URL
+function getCurrentProxy() {
+    return PROXY_SERVICES[currentProxyIndex];
+}
+
+// Cycle to next proxy if current fails
+function nextProxy() {
+    currentProxyIndex = (currentProxyIndex + 1) % PROXY_SERVICES.length;
+    return getCurrentProxy();
+}
 
 // Load URL in proxy
 function loadUrl() {
     const urlInput = document.getElementById('urlInput');
     const proxyFrame = document.getElementById('proxyFrame');
+    const proxyLoading = document.getElementById('proxyLoading');
     
     if (!urlInput || !proxyFrame) return;
     
@@ -14,7 +37,7 @@ function loadUrl() {
     
     // Validate URL
     if (!url) {
-        alert('Please enter a URL');
+        showNotification('Please enter a URL', 'error');
         return;
     }
     
@@ -24,39 +47,81 @@ function loadUrl() {
         urlInput.value = url;
     }
     
+    try {
+        new URL(url);
+    } catch (e) {
+        showNotification('Invalid URL format', 'error');
+        return;
+    }
+    
     // Save to history
     if (proxyHistory.length === 0 || proxyHistory[proxyHistory.length - 1] !== url) {
         proxyHistory.push(url);
         currentHistoryIndex = proxyHistory.length - 1;
     }
     
-    // Use Ultraviolet proxy (same as PeteZah)
+    currentUrl = url;
+    updateNavButtons();
+    
+    // Show loading
+    if (proxyLoading) {
+        proxyLoading.style.display = 'flex';
+    }
+    
+    // Get proxy URL
     const proxyUrl = getProxyUrl(url);
     
     // Load in iframe
     proxyFrame.src = proxyUrl;
     
-    // Show notification
-    showNotification(`Loading: ${url}`);
+    // Set up error handling
+    proxyFrame.onload = function() {
+        if (proxyLoading) {
+            proxyLoading.style.display = 'none';
+        }
+        showNotification(`Loaded: ${new URL(url).hostname}`, 'success');
+    };
+    
+    proxyFrame.onerror = function() {
+        if (proxyLoading) {
+            proxyLoading.style.display = 'none';
+        }
+        showNotification('Failed to load. Trying different proxy...', 'error');
+        setTimeout(() => {
+            const newProxy = nextProxy();
+            const newProxyUrl = newProxy + 'service/' + encodeURIComponent(url);
+            proxyFrame.src = newProxyUrl;
+        }, 1000);
+    };
 }
 
-// Get proxy URL using Ultraviolet (same as PeteZah)
+// Get proxy URL using working proxy service
 function getProxyUrl(url) {
-    // Using Titanium Network's Ultraviolet (what PeteZah uses)
-    const uvBase = 'https://uv.8bays.repl.co/';
-    return uvBase + 'service/' + encodeURIComponent(url);
+    const proxy = getCurrentProxy();
+    return proxy + 'service/' + encodeURIComponent(url);
 }
 
-// Alternative proxy services if one doesn't work
-function getAlternateProxyUrl(url) {
-    const proxies = [
-        'https://corrosion.pro/',
-        'https://alloy.pro/',
-        'https://node2.allschoolproxy.xyz/'
+// Alternative: Direct iframe for certain sites
+function getDirectUrl(url) {
+    // For some sites, we can use direct embedding
+    const hostname = new URL(url).hostname;
+    
+    // Sites that usually allow embedding
+    const embeddableSites = [
+        'wikipedia.org',
+        'github.com',
+        'archive.org',
+        'crazygames.com',
+        'itch.io'
     ];
     
-    const randomProxy = proxies[Math.floor(Math.random() * proxies.length)];
-    return randomProxy + 'service/' + encodeURIComponent(url);
+    for (const site of embeddableSites) {
+        if (hostname.includes(site)) {
+            return url; // Return direct URL
+        }
+    }
+    
+    return getProxyUrl(url);
 }
 
 // Quick link function
@@ -73,41 +138,58 @@ function goBack() {
     if (currentHistoryIndex > 0) {
         currentHistoryIndex--;
         const url = proxyHistory[currentHistoryIndex];
+        currentUrl = url;
+        
         const urlInput = document.getElementById('urlInput');
         if (urlInput) {
             urlInput.value = url;
         }
+        
         loadUrl();
     }
+    updateNavButtons();
 }
 
 function goForward() {
     if (currentHistoryIndex < proxyHistory.length - 1) {
         currentHistoryIndex++;
         const url = proxyHistory[currentHistoryIndex];
+        currentUrl = url;
+        
         const urlInput = document.getElementById('urlInput');
         if (urlInput) {
             urlInput.value = url;
         }
+        
         loadUrl();
     }
+    updateNavButtons();
 }
 
 function refreshPage() {
     const proxyFrame = document.getElementById('proxyFrame');
-    if (proxyFrame && proxyFrame.contentWindow) {
-        try {
-            proxyFrame.contentWindow.location.reload();
-            showNotification('Page refreshed');
-        } catch (e) {
-            loadUrl();
-        }
+    const proxyLoading = document.getElementById('proxyLoading');
+    
+    if (proxyLoading) {
+        proxyLoading.style.display = 'flex';
+    }
+    
+    if (proxyFrame && proxyFrame.src) {
+        proxyFrame.contentWindow.location.reload();
+        
+        // Hide loading after a moment
+        setTimeout(() => {
+            if (proxyLoading) {
+                proxyLoading.style.display = 'none';
+            }
+        }, 1000);
     }
 }
 
 function clearProxy() {
     const proxyFrame = document.getElementById('proxyFrame');
     const urlInput = document.getElementById('urlInput');
+    const proxyLoading = document.getElementById('proxyLoading');
     
     if (proxyFrame) {
         proxyFrame.src = '';
@@ -117,46 +199,102 @@ function clearProxy() {
         urlInput.value = '';
     }
     
-    showNotification('Proxy cleared');
+    if (proxyLoading) {
+        proxyLoading.style.display = 'none';
+    }
+    
+    showNotification('Proxy cleared', 'info');
+}
+
+function openInNewTab() {
+    const urlInput = document.getElementById('urlInput');
+    const url = urlInput.value.trim();
+    
+    if (url) {
+        const proxyUrl = getProxyUrl(url);
+        window.open(proxyUrl, '_blank');
+    }
+}
+
+function updateNavButtons() {
+    const backBtn = document.getElementById('backBtn');
+    const forwardBtn = document.getElementById('forwardBtn');
+    
+    if (backBtn) {
+        backBtn.disabled = currentHistoryIndex <= 0;
+        backBtn.style.opacity = currentHistoryIndex <= 0 ? '0.5' : '1';
+    }
+    
+    if (forwardBtn) {
+        forwardBtn.disabled = currentHistoryIndex >= proxyHistory.length - 1;
+        forwardBtn.style.opacity = currentHistoryIndex >= proxyHistory.length - 1 ? '0.5' : '1';
+    }
 }
 
 // Notification function
-function showNotification(message) {
-    // Create notification element
+function showNotification(message, type = 'info') {
+    // Remove existing notifications
+    const existing = document.querySelectorAll('.proxy-notification');
+    existing.forEach(el => el.remove());
+    
+    // Create notification
     const notification = document.createElement('div');
-    notification.style.cssText = `
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background: rgba(15, 23, 42, 0.95);
-        backdrop-filter: blur(10px);
-        border: 1px solid #6366f1;
-        border-radius: 10px;
-        padding: 15px 20px;
-        color: white;
-        z-index: 9999;
-        animation: slideIn 0.3s ease;
-    `;
+    notification.className = 'proxy-notification';
+    notification.style.background = type === 'error' ? 'rgba(239, 68, 68, 0.95)' : 
+                                  type === 'success' ? 'rgba(16, 185, 129, 0.95)' : 
+                                  'rgba(99, 102, 241, 0.95)';
     
     notification.innerHTML = `
-        <i class="fas fa-info-circle" style="color:#6366f1; margin-right:10px;"></i>
-        ${message}
+        <i class="fas fa-${type === 'error' ? 'exclamation-triangle' : type === 'success' ? 'check-circle' : 'info-circle'}"></i>
+        <span style="margin-left: 10px;">${message}</span>
     `;
     
     document.body.appendChild(notification);
     
     // Remove after 3 seconds
     setTimeout(() => {
-        notification.remove();
+        if (notification.parentElement) {
+            notification.remove();
+        }
     }, 3000);
 }
 
-// Load default URL when page loads
+// Initialize proxy
 window.addEventListener('load', function() {
-    // Load Google by default
+    // Update year
+    const yearElements = document.querySelectorAll('#currentYear');
+    yearElements.forEach(el => {
+        el.textContent = new Date().getFullYear();
+    });
+    
+    // Load default URL after a moment
     setTimeout(() => {
         loadUrl();
-    }, 1000);
+    }, 500);
+    
+    // Add keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+        // Ctrl/Cmd + L to focus URL input
+        if ((e.ctrlKey || e.metaKey) && e.key === 'l') {
+            e.preventDefault();
+            const urlInput = document.getElementById('urlInput');
+            if (urlInput) {
+                urlInput.focus();
+                urlInput.select();
+            }
+        }
+        
+        // Enter in URL input
+        if (e.key === 'Enter' && e.target.id === 'urlInput') {
+            loadUrl();
+        }
+        
+        // F5 or Ctrl+R to refresh
+        if (e.key === 'F5' || ((e.ctrlKey || e.metaKey) && e.key === 'r')) {
+            e.preventDefault();
+            refreshPage();
+        }
+    });
 });
 
 // Make functions globally available
@@ -166,3 +304,4 @@ window.goBack = goBack;
 window.goForward = goForward;
 window.refreshPage = refreshPage;
 window.clearProxy = clearProxy;
+window.openInNewTab = openInNewTab;
