@@ -3,170 +3,187 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nebula Site - Games & Proxy</title>
+    <title>NebulaHub - Cosmic Gaming & Browsing</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Animated Nebula Background -->
-    <div class="nebula-background">
-        <div class="stars"></div>
-        <div class="twinkling"></div>
-        <div class="clouds"></div>
-    </div>
-
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                <i class="fas fa-stars"></i>
-                <span class="logo-text">Nebula<span class="logo-accent">Site</span></span>
-            </div>
-            <div class="nav-links">
-                <a href="#home" class="nav-link active"><i class="fas fa-home"></i> Home</a>
-                <a href="#games" class="nav-link"><i class="fas fa-gamepad"></i> Games</a>
-                <a href="#proxy" class="nav-link"><i class="fas fa-satellite-dish"></i> Proxy</a>
-                <a href="#about" class="nav-link"><i class="fas fa-info-circle"></i> About</a>
-            </div>
-            <button class="menu-toggle" onclick="toggleMenu()">
-                <i class="fas fa-bars"></i>
-            </button>
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar">
+        <div class="sidebar-logo">
+            <i class="fas fa-stars"></i>
+            <h2>NebulaHub</h2>
+        </div>
+        
+        <div class="sidebar-links">
+            <a href="index.html" class="sidebar-link active">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            
+            <a href="games.html" class="sidebar-link">
+                <i class="fas fa-gamepad"></i>
+                <span>Games</span>
+            </a>
+            
+            <a href="proxy.html" class="sidebar-link">
+                <i class="fas fa-shield-alt"></i>
+                <span>Proxy</span>
+            </a>
+        </div>
+        
+        <div class="sidebar-footer">
+            <p>Made with <i class="fas fa-heart"></i> by theboredguy387</p>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <div class="hero-title">
-                <h1 class="neon-text">Welcome to <span class="gradient-text">Nebula</span></h1>
-                <p class="hero-subtitle">Unleash gaming freedom in the cosmic web</p>
-            </div>
-            <div class="hero-buttons">
-                <a href="#games" class="btn btn-neon">
-                    <i class="fas fa-rocket"></i> Launch Games
-                </a>
-                <a href="#proxy" class="btn btn-space">
-                    <i class="fas fa-shield-alt"></i> Cosmic Proxy
-                </a>
-            </div>
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Animated Background -->
+        <div class="nebula-bg">
+            <div class="stars"></div>
+            <div class="twinkling"></div>
+            <div class="clouds"></div>
         </div>
-        <div class="floating-planets">
-            <div class="planet planet-1"></div>
-            <div class="planet planet-2"></div>
-            <div class="planet planet-3"></div>
-        </div>
-    </section>
 
-    <!-- Games Section -->
-    <section id="games" class="section">
-        <div class="section-header">
-            <h2 class="section-title"><i class="fas fa-gamepad"></i> Cosmic Games</h2>
-            <p class="section-subtitle">Explore galaxies of unblocked entertainment</p>
-        </div>
-        
-        <div class="games-container" id="gamesContainer">
-            <!-- Games loaded by JavaScript -->
-        </div>
-        
-        <div class="search-container">
-            <input type="text" id="gameSearch" placeholder="🔍 Search cosmic games..." oninput="searchGames()">
-        </div>
-    </section>
+        <!-- Header -->
+        <header class="main-header">
+            <div class="header-content">
+                <h1 class="neon-title">Welcome to <span class="gradient-text">NebulaHub</span></h1>
+                <p class="subtitle">Your cosmic gateway to unblocked games and secure browsing</p>
+            </div>
+        </header>
 
-    <!-- Proxy Section -->
-    <section id="proxy" class="section proxy-section">
-        <div class="section-header">
-            <h2 class="section-title"><i class="fas fa-satellite-dish"></i> Nebula Proxy</h2>
-            <p class="section-subtitle">Browse through cosmic veil - secure & private</p>
-        </div>
-        
-        <div class="proxy-container">
-            <div class="proxy-input-container">
-                <div class="proxy-input-group">
-                    <i class="fas fa-globe"></i>
-                    <input type="text" id="proxyUrl" placeholder="Enter starlink URL (https://example.com)">
-                    <button onclick="loadProxy()" class="btn btn-neon">
-                        <i class="fas fa-shield-alt"></i> Activate Proxy
-                    </button>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-grid">
+                <div class="hero-card">
+                    <div class="hero-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3>Cosmic Games</h3>
+                    <p>Access hundreds of unblocked games from across the galaxy</p>
+                    <a href="games.html" class="btn btn-neon">
+                        <i class="fas fa-rocket"></i> Explore Games
+                    </a>
                 </div>
-                <div class="proxy-controls">
-                    <button onclick="goBack()" class="btn btn-space btn-small">
-                        <i class="fas fa-arrow-left"></i> Back
-                    </button>
-                    <button onclick="goForward()" class="btn btn-space btn-small">
-                        <i class="fas fa-arrow-right"></i> Forward
-                    </button>
-                    <button onclick="refreshPage()" class="btn btn-space btn-small">
-                        <i class="fas fa-redo"></i> Refresh
-                    </button>
+                
+                <div class="hero-card">
+                    <div class="hero-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Secure Proxy</h3>
+                    <p>Browse the internet privately with our cosmic shield</p>
+                    <a href="proxy.html" class="btn btn-space">
+                        <i class="fas fa-lock"></i> Start Browsing
+                    </a>
                 </div>
+                
+                <div class="hero-card">
+                    <div class="hero-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Lightning Fast</h3>
+                    <p>Experience blazing speeds with our optimized servers</p>
+                    <a href="#features" class="btn btn-purple">
+                        <i class="fas fa-chart-line"></i> Learn More
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Games -->
+        <section class="featured-section">
+            <div class="section-header">
+                <h2><i class="fas fa-fire"></i> Featured Games</h2>
+                <p>Popular games in the nebula</p>
             </div>
             
-            <div class="proxy-frame-wrapper">
-                <div id="proxyLoader" class="proxy-loader">
-                    <div class="spinner"></div>
-                    <p>Connecting to cosmic network...</p>
-                </div>
-                <iframe id="proxyFrame" title="Nebula Proxy" frameborder="0"></iframe>
+            <div class="games-preview" id="featuredGames">
+                <!-- Games loaded by JavaScript -->
             </div>
             
-            <div class="proxy-info">
-                <div class="info-card">
-                    <i class="fas fa-lock"></i>
-                    <h3>Secure Browsing</h3>
-                    <p>Encrypted cosmic connection</p>
-                </div>
-                <div class="info-card">
-                    <i class="fas fa-bolt"></i>
-                    <h3>Fast Speed</h3>
-                    <p>Light-speed proxy servers</p>
-                </div>
-                <div class="info-card">
-                    <i class="fas fa-user-secret"></i>
-                    <h3>Anonymous</h3>
-                    <p>No cosmic traces left</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="section about-section">
-        <div class="about-container">
-            <div class="about-card">
-                <i class="fas fa-star"></i>
-                <h3>About Nebula</h3>
-                <p>Experience the ultimate cosmic gaming and browsing platform. Built with stellar technology for seamless entertainment across the universe.</p>
-            </div>
-            <div class="about-card">
-                <i class="fas fa-code"></i>
-                <h3>Open Source</h3>
-                <p>This project is open-source on GitHub. Feel free to contribute to our cosmic mission!</p>
-                <a href="https://github.com/theboredguy387/goofysite" target="_blank" class="btn btn-space">
-                    <i class="fab fa-github"></i> View on GitHub
+            <div class="text-center">
+                <a href="games.html" class="btn btn-large">
+                    <i class="fas fa-globe"></i> View All Games
                 </a>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="logo">
-                <i class="fas fa-stars"></i>
-                <span>Nebula<span class="logo-accent">Site</span></span>
+        <!-- Features -->
+        <section id="features" class="features-section">
+            <div class="section-header">
+                <h2><i class="fas fa-star"></i> Why Choose NebulaHub?</h2>
             </div>
-            <p>Explore the cosmic web safely | Made with <i class="fas fa-heart"></i> by theboredguy387</p>
-            <p class="footer-links">
-                <a href="#home">Home</a> • 
-                <a href="#games">Games</a> • 
-                <a href="#proxy">Proxy</a> • 
-                <a href="#about">About</a>
-            </p>
-        </div>
-    </footer>
+            
+            <div class="features-grid">
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h3>Total Privacy</h3>
+                    <p>Your browsing stays anonymous and secure</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Super Fast</h3>
+                    <p>Optimized servers for lightning-fast speeds</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3>No Blocks</h3>
+                    <p>Access all games without restrictions</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobile Ready</h3>
+                    <p>Works perfectly on all devices</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="main-footer">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-stars"></i>
+                    <span>NebulaHub</span>
+                </div>
+                
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="games.html">Games</a>
+                    <a href="proxy.html">Proxy</a>
+                    <a href="https://github.com/theboredguy387/goofysite">GitHub</a>
+                </div>
+                
+                <p class="copyright">
+                    &copy; 2024 NebulaHub. All rights reserved.<br>
+                    Created with ❤️ for the cosmic community
+                </p>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Floating Elements -->
+    <div class="floating-elements">
+        <div class="planet p1"></div>
+        <div class="planet p2"></div>
+        <div class="planet p3"></div>
+        <div class="asteroid"></div>
+    </div>
 
     <script src="script.js"></script>
+    <script src="games.js"></script>
 </body>
 </html>
