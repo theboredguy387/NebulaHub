@@ -1,50 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Nebula Hub</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Goofysite</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body class="home">
 
-  <!-- SIDEBAR -->
   <div id="sidebar">
-    <div class="logo">
-      <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExdmFmOHUzcm9ydnE0ajQwano4ZTF0Y29vdzY3bWZnZGk1Ym5yeXYxeiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/sXOQD2MmZyYc9gGtlI/giphy.gif">
-      <span>Nebula</span>
-    </div>
-
-    <button id="homeBtn">🏠 Home</button>
-    <button id="gamesBtn">🎮 Games</button>
+    <h2>Goofysite</h2>
+    <button onclick="showHome()">Home</button>
+    <button onclick="showGames()">Games</button>
   </div>
 
-  <!-- MAIN -->
   <div id="main">
-
-    <!-- PARTICLES -->
-    <canvas id="particles"></canvas>
-
     <!-- HOME -->
     <div id="home">
-      <h1>Welcome to Nebula</h1>
-      <p>Float through games and space.</p>
+      <h1>Nebula Hub</h1>
+      <p>games • proxy • chaos</p>
+      <img src="hrm.jpg" alt="hero" />
     </div>
 
-    <!-- GAMES -->
+    <!-- GAMES LIST -->
     <div id="games">
-      <h2>Games</h2>
+      <h1>Games</h1>
       <div class="game-list">
-        <button data-url="https://mathgames66.github.io/games/stickman-hook/">Stickman Hook</button>
-        <button data-url="https://mathgames66.github.io/games/house-of-hazards/">House of Hazards</button>
-        <button data-url="https://mathgames66.github.io/games/happy-wheels/">Happy Wheels</button>
+        <button onclick="launchGame('https://gn-math.github.io/house-of-hazards/')">
+          House of Hazards
+        </button>
+        <button onclick="launchGame('https://gn-math.github.io/1v1-lol/')">
+          1v1.LOL
+        </button>
+        <button onclick="launchGame('https://gn-math.github.io/slope/')">
+          Slope
+        </button>
       </div>
     </div>
 
-    <!-- PLAYER -->
+    <!-- GAME PLAYER -->
     <iframe id="player" allowfullscreen></iframe>
-
   </div>
 
-  <script src="app.js" defer></script>
+  <script src="app.js"></script>
 </body>
 </html>
