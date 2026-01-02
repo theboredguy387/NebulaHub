@@ -3,13 +3,6 @@ const games = document.getElementById("games");
 const player = document.getElementById("player");
 const body = document.body;
 
-document.getElementById("homeBtn").onclick = showHome;
-document.getElementById("gamesBtn").onclick = showGames;
-
-document.querySelectorAll(".game-list button").forEach(btn => {
-  btn.onclick = () => launchGame(btn.dataset.url);
-});
-
 function showHome() {
   body.className = "home";
   home.style.display = "block";
@@ -33,3 +26,6 @@ function launchGame(url) {
   player.style.display = "block";
   player.src = url;
 }
+
+/* 🔥 THIS IS THE IMPORTANT PART */
+showHome();
