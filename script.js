@@ -18,10 +18,27 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Add current year to footer
-    const yearSpan = document.querySelector('#currentYear');
-    if (yearSpan) {
-        yearSpan.textContent = new Date().getFullYear();
-    }
+    const yearElements = document.querySelectorAll('#currentYear');
+    yearElements.forEach(el => {
+        el.textContent = new Date().getFullYear();
+    });
+    
+    // Add smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
 });
 
 // Simple notification system
@@ -37,9 +54,16 @@ function showMessage(message, type = 'info') {
         border-radius: 10px;
         z-index: 9999;
         animation: slideIn 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 10px;
     `;
     
-    messageDiv.textContent = message;
+    messageDiv.innerHTML = `
+        <i class="fas fa-${type === 'error' ? 'exclamation-triangle' : type === 'success' ? 'check-circle' : 'info-circle'}"></i>
+        ${message}
+    `;
+    
     document.body.appendChild(messageDiv);
     
     setTimeout(() => {
@@ -47,12 +71,22 @@ function showMessage(message, type = 'info') {
     }, 3000);
 }
 
-// Add animation style
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideIn {
-        from { transform: translateX(100%); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
-    }
-`;
-document.head.appendChild(style);
+// Add animation style if not present
+if (!document.querySelector('#animation-styles')) {
+    const style = document.createElement('style');
+    style.id = 'animation-styles';
+    style.textContent = `
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+// Make functions available globally
+window.showMessage = showMessage;
