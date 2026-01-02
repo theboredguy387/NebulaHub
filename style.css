@@ -1,101 +1,92 @@
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
   font-family: system-ui, sans-serif;
 }
 
 body {
-  margin: 0;
   display: flex;
   height: 100vh;
-  overflow: hidden;
   color: white;
-}
-
-/* SIDEBAR */
-#sidebar {
-  width: 220px;
-  background: linear-gradient(180deg, #020617, #020617);
-  padding: 20px;
-}
-
-#sidebar h2 {
-  margin-top: 0;
-}
-
-#sidebar button {
-  width: 100%;
-  margin-top: 10px;
-  padding: 12px;
-  border: none;
-  border-radius: 10px;
-  background: #0f172a;
-  color: white;
-  cursor: pointer;
-}
-
-#sidebar button:hover {
-  background: #1e293b;
-}
-
-/* MAIN AREA */
-#main {
-  flex: 1;
-  position: relative;
-  min-height: 100vh;
-  overflow: hidden;
   background: #020617;
 }
 
-/* NEBULA BACKGROUND */
-body.home #main::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 20% 30%, #22d3ee55, transparent 40%),
-    radial-gradient(circle at 80% 70%, #f472b655, transparent 40%),
-    linear-gradient(180deg, #020617, #020617);
-  z-index: 0;
-}
-
-/* CONTENT LAYERS */
-#home, #games {
-  position: relative;
-  z-index: 1;
-  padding: 40px;
-}
-
-#home img {
-  width: 280px;
-  margin-top: 20px;
-  border-radius: 20px;
-  box-shadow: 0 0 40px rgba(255, 100, 200, 0.4);
-}
-
-/* GAMES PAGE */
-body.games #main {
-  background: linear-gradient(180deg, #020617, #020617);
-}
-
-.game-list button {
-  display: block;
-  margin: 10px 0;
-  padding: 14px;
+/* SIDEBAR */
+.sidebar {
   width: 260px;
+  background: #020617;
+  padding: 20px;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.sidebar button {
+  width: 100%;
+  padding: 16px;
+  margin-bottom: 14px;
+  border: none;
+  border-radius: 14px;
+  background: #0f172a;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.sidebar button:hover {
+  background: #1e293b;
+}
+
+/* MAIN */
+main {
+  flex: 1;
+}
+
+/* HOME WITH YOUR GIF */
+#home {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  background:
+    linear-gradient(rgba(2,6,23,0.7), rgba(2,6,23,0.7)),
+    url("https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExdmFmOHUzcm9ydnE0ajQwano4ZTF0Y29vdzY3bWZnZGk1Ym5yeXYxeiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/sXOQD2MmZyYc9gGtlI/giphy.gif");
+
+  background-size: cover;
+  background-position: center;
+}
+
+#home h1 {
+  font-size: 48px;
+}
+
+/* GAMES */
+#games {
+  display: none;
+  height: 100%;
+  padding: 30px;
+  background: #020617;
+}
+
+#games button {
+  padding: 14px 20px;
   border-radius: 12px;
   border: none;
   background: #1e293b;
   color: white;
   cursor: pointer;
+  margin-bottom: 16px;
 }
 
-/* PLAYER */
-#player {
-  display: none;
-  position: absolute;
-  inset: 0;
+iframe {
   width: 100%;
-  height: 100%;
+  height: 70vh;
   border: none;
-  z-index: 2;
+  background: black;
 }
