@@ -1,31 +1,21 @@
 const home = document.getElementById("home");
 const games = document.getElementById("games");
-const player = document.getElementById("player");
-const body = document.body;
+const frame = document.getElementById("gameFrame");
 
 function showHome() {
-  body.className = "home";
-  home.style.display = "block";
+  home.style.display = "flex";
   games.style.display = "none";
-  player.style.display = "none";
-  player.src = "";
+  frame.src = "";
 }
 
 function showGames() {
-  body.className = "games";
   home.style.display = "none";
   games.style.display = "block";
-  player.style.display = "none";
-  player.src = "";
 }
 
-function launchGame(url) {
-  body.className = "games";
-  home.style.display = "none";
-  games.style.display = "none";
-  player.style.display = "block";
-  player.src = url;
+function loadGame() {
+  // embeddable game, same tab
+  frame.src = "https://itch.io/embed-upload/493807?color=000000";
 }
 
-/* 🔥 THIS IS THE IMPORTANT PART */
 showHome();
