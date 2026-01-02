@@ -1,6 +1,6 @@
 * {
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
+  font-family: system-ui, sans-serif;
 }
 
 body {
@@ -11,99 +11,91 @@ body {
   color: white;
 }
 
-/* ---------- SIDEBAR ---------- */
+/* SIDEBAR */
 #sidebar {
-  width: 120px;
-  background: #0b1020;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 20px;
+  width: 220px;
+  background: linear-gradient(180deg, #020617, #020617);
+  padding: 20px;
+}
+
+#sidebar h2 {
+  margin-top: 0;
 }
 
 #sidebar button {
-  width: 90%;
-  background: #1e293b;
-  border: none;
-  color: white;
+  width: 100%;
+  margin-top: 10px;
   padding: 12px;
-  margin: 10px 0;
-  border-radius: 12px;
+  border: none;
+  border-radius: 10px;
+  background: #0f172a;
+  color: white;
   cursor: pointer;
 }
 
-/* ---------- MAIN ---------- */
+#sidebar button:hover {
+  background: #1e293b;
+}
+
+/* MAIN AREA */
 #main {
   flex: 1;
   position: relative;
+  min-height: 100vh;
   overflow: hidden;
+  background: #020617;
 }
 
-/* 🔮 HOME BACKGROUND (nebula) */
+/* NEBULA BACKGROUND */
 body.home #main::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, #3bd5c6, #7c7cff, #ff7ac8);
-  opacity: 0.3;
+  background:
+    radial-gradient(circle at 20% 30%, #22d3ee55, transparent 40%),
+    radial-gradient(circle at 80% 70%, #f472b655, transparent 40%),
+    linear-gradient(180deg, #020617, #020617);
   z-index: 0;
 }
 
-/* 🌌 GAMES BACKGROUND (dark blue) */
-body.games #main::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, #020617, #020617);
-  z-index: 0;
-}
-
-/* ---------- PARTICLES ---------- */
-#particles {
-  position: absolute;
-  inset: 0;
+/* CONTENT LAYERS */
+#home, #games {
+  position: relative;
   z-index: 1;
-}
-
-/* ---------- HOME ---------- */
-#home {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  margin-top: 160px;
-}
-
-#home h1 {
-  font-size: 56px;
-}
-
-/* ---------- GAMES ---------- */
-#games {
-  display: none;
-  position: relative;
-  z-index: 2;
   padding: 40px;
+}
+
+#home img {
+  width: 280px;
+  margin-top: 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 40px rgba(255, 100, 200, 0.4);
+}
+
+/* GAMES PAGE */
+body.games #main {
+  background: linear-gradient(180deg, #020617, #020617);
 }
 
 .game-list button {
   display: block;
-  background: #1e293b;
+  margin: 10px 0;
+  padding: 14px;
+  width: 260px;
+  border-radius: 12px;
   border: none;
+  background: #1e293b;
   color: white;
-  padding: 16px;
-  margin: 12px 0;
-  border-radius: 14px;
-  font-size: 16px;
   cursor: pointer;
 }
 
-/* ---------- PLAYER ---------- */
+/* PLAYER */
 #player {
   display: none;
   position: absolute;
   inset: 0;
-  z-index: 3;
-  border: none;
   width: 100%;
   height: 100%;
+  border: none;
+  z-index: 2;
 }
