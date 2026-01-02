@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games - NebulaHub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <i class="fas fa-stars"></i>
+            <h1>NebulaHub</h1>
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="games.html" class="nav-link active">
+                <i class="fas fa-gamepad"></i> Games
+            </a>
+            <a href="proxy.html" class="nav-link">
+                <i class="fas fa-shield-alt"></i> Proxy
+            </a>
+        </div>
+        <div class="sidebar-footer">
+            Made with <i class="fas fa-heart" style="color:#ef4444"></i> by theboredguy387
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Games Header -->
+        <div class="hero">
+            <h1 class="hero-title">All Games</h1>
+            <p class="hero-subtitle">Click any game to play instantly</p>
+            
+            <!-- Search -->
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search games...">
+            </div>
+        </div>
+
+        <!-- Games Grid -->
+        <div class="section">
+            <div class="games-grid" id="gamesGrid">
+                <!-- Games will be loaded by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>NebulaHub Games &copy; 2024 | Like PeteZah Games</p>
+        </footer>
+    </div>
+
+    <script src="games.js"></script>
+</body>
+</html>
